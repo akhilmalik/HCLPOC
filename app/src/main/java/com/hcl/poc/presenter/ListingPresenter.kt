@@ -1,5 +1,6 @@
 package com.hcl.poc.presenter
 
+import android.app.Activity
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.VolleyError
@@ -25,11 +26,22 @@ class ListingPresenter(var listingInterface: ListingInterface) {
     }
 
     //Get feed
-    fun getFeed() {
-        if (feed == null)
-            getFeedFromNetwork()
-        else
-            listingInterface.onDataLoaded(feed!!)
+    fun getFeed(fromNetwork: Boolean = false, activity: Activity) {
+        if (checkNetworkConnection(activity)) {
+            if (feed == null || fromNetwork)
+                getFeedFromNetwork()
+            else
+                listingInterface.onDataLoaded(feed!!)
+        } else {
+            listingInterface.onError("No Network Connection")
+        }
+    }
+
+    // Check for network connectivity
+    private fun checkNetworkConnection(activity: Activity): Boolean {
+
+        return com.myandroidlib.network.connectivity.NetworkConnection.isNetworkAvailable(activity)
+
     }
 
     // Method to get all feeds via Volley

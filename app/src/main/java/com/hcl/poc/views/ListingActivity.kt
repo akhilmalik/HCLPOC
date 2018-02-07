@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.widget.LinearLayout
+import android.widget.Toast
 import com.hcl.poc.POCApp
 import com.hcl.poc.R
 import com.hcl.poc.adapter.ListingAdapter
@@ -27,9 +28,9 @@ class ListingActivity : AppCompatActivity(), ListingInterface {
 
         listingPresenter = POCApp.instance?.getListingPresenter(this) as ListingPresenter
 
-        listingPresenter.getFeed()
+        listingPresenter.getFeed(false, this)
         fab.setOnClickListener { view ->
-
+            listingPresenter.getFeed(true, this)
         }
     }
 
@@ -44,5 +45,6 @@ class ListingActivity : AppCompatActivity(), ListingInterface {
     }
 
     override fun onError(error: String) {
+        Toast.makeText(this, error, Toast.LENGTH_LONG).show()
     }
 }

@@ -17,6 +17,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getTargetContext()
-        assertEquals("com.hcl.hclpoc", appContext.packageName)
+        assertEquals("com.hcl.poc", appContext.packageName)
     }
 }
