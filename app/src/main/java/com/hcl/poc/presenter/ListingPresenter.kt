@@ -17,7 +17,7 @@ import org.json.JSONException
  */
 class ListingPresenter(var listingInterface: ListingInterface) {
 
-    private var feed : Feed? = null
+    private var feed: Feed? = null
 
     // set call back for view
     fun setCallbacks(listInterface: ListingInterface) {
@@ -25,8 +25,8 @@ class ListingPresenter(var listingInterface: ListingInterface) {
     }
 
     //Get feed
-    fun getFeed (){
-        if(feed==null)
+    fun getFeed() {
+        if (feed == null)
             getFeedFromNetwork()
         else
             listingInterface.onDataLoaded(feed!!)
@@ -60,10 +60,9 @@ class ListingPresenter(var listingInterface: ListingInterface) {
     }
 
     private fun filterFeed(): List<FeedRow> {
-        var filterFeed : ArrayList<FeedRow> = ArrayList<FeedRow>()
-        for(row:FeedRow in feed!!.rows)
-        {
-            if(row.title!=null)
+        var filterFeed: ArrayList<FeedRow> = ArrayList<FeedRow>()
+        for (row: FeedRow in feed!!.rows) {
+            if (row.title != null)
                 filterFeed.add(row)
         }
         return filterFeed

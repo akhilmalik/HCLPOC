@@ -7,7 +7,8 @@ import com.hcl.poc.model.Feed
  */
 interface ListingInterface {
     // function to send data fetched from server to view
-    fun onDataLoaded(feed : Feed)
+    fun onDataLoaded(feed: Feed)
+
     // call back for reporting error
-    fun onError(error:String)
+    fun onError(error: String)
 }
