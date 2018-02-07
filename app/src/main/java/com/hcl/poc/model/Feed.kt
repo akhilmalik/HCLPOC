@@ -9,5 +9,5 @@ data class Feed(
         @SerializedName("title")
         val title: String,
         @SerializedName("rows")
-        val rows: List<FeedRow>
+        var rows: List<FeedRow>
 )

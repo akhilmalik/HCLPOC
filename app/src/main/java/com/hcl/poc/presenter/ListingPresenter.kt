@@ -4,39 +4,40 @@ import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.VolleyError
 import com.android.volley.toolbox.StringRequest
+import com.google.gson.Gson
 import com.hcl.poc.POCApp
 import com.hcl.poc.interfaces.ListingInterface
+import com.hcl.poc.model.Feed
+import com.hcl.poc.model.FeedRow
 import com.hcl.poc.util.Constants
 import org.json.JSONException
-import org.json.JSONObject
 
 /**
  * Created by akhilmalik on 07/02/18.
  */
-class ListingPresenter {
-    companion object {
-        lateinit var listingInterface: ListingInterface
-        lateinit var listingPresenter: ListingPresenter
+class ListingPresenter(var listingInterface: ListingInterface) {
 
-        // For getting Singleton Instance
-        fun getInstance(listInterface: ListingInterface): ListingPresenter {
-            if (::listingPresenter.isInitialized) {
-                listingInterface = listInterface
-                return listingPresenter
-            } else {
-                listingPresenter = ListingPresenter()
-                listingInterface = listInterface
-                return listingPresenter
-            }
-        }
+    private var feed : Feed? = null
+
+    // set call back for view
+    fun setCallbacks(listInterface: ListingInterface) {
+        listingInterface = listInterface
     }
 
-    fun getFeed(){
+    //Get feed
+    fun getFeed (){
+        if(feed==null)
+            getFeedFromNetwork()
+        else
+            listingInterface.onDataLoaded(feed!!)
+    }
+
+    // Method to get all feeds via Volley
+    fun getFeedFromNetwork() {
         val stringRequest = object : StringRequest(Request.Method.GET, Constants.GET_FEED,
                 Response.Listener<String> { response ->
                     try {
-                        val obj = JSONObject(response)
-                        parseResponse(obj)
+                        parseResponse(response)
                     } catch (e: JSONException) {
                         e.printStackTrace()
                     }
@@ -51,5 +52,22 @@ class ListingPresenter {
         //adding request to queue
         POCApp.instance?.addToRequestQueue(stringRequest)
     }
+
+    private fun parseResponse(obj: String) {
+        feed = Gson().fromJson(obj, Feed::class.java)
+        feed!!.rows = filterFeed()
+        listingInterface.onDataLoaded(feed as Feed)
+    }
+
+    private fun filterFeed(): List<FeedRow> {
+        var filterFeed : ArrayList<FeedRow> = ArrayList<FeedRow>()
+        for(row:FeedRow in feed!!.rows)
+        {
+            if(row.title!=null)
+                filterFeed.add(row)
+        }
+        return filterFeed
+    }
+
 
 }

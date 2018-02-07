@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">HCLPOC</string>
+    <string name="app_name">POCAPP</string>
     <string name="title_activity_listing">ListingActivity</string>
 </resources>
