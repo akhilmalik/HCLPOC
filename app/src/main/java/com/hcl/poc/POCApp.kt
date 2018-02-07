@@ -1,4 +1,4 @@
-package com.hcl.hclpoc
+package com.hcl.poc
 
 import android.app.Application
 import com.android.volley.Request
@@ -8,7 +8,7 @@ import com.android.volley.toolbox.Volley
 /**
  * Created by akhilmalik on 04/01/18.
  */
-class HclPOCApp : Application() {
+class POCApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
@@ -30,7 +30,7 @@ class HclPOCApp : Application() {
     companion object {
 
         @get:Synchronized
-        var instance: HclPOCApp? = null
+        var instance: POCApp? = null
             private set
 
     }

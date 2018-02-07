@@ -1,9 +1,9 @@
-package com.hcl.hclpoc.views
+package com.hcl.poc.views
 
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
-import com.hcl.hclpoc.R
+import com.hcl.poc.R
 
 import kotlinx.android.synthetic.main.activity_listing.*
 

@@ -1,4 +1,4 @@
-package com.hcl.hclpoc
+package com.hcl.poc
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4

@@ -1,4 +1,4 @@
-package com.hcl.hclpoc
+package com.hcl.poc
 
 import org.junit.Test
 
