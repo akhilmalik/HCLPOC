@@ -7,11 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import com.hcl.poc.R
 import com.hcl.poc.model.FeedRow
+import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_feed.view.*
 
 /**
  * Created by akhilmalik on 7/02/18.
+ *
+ * Adapter class for Listing Activity recycler view
  */
 class ListingAdapter(val rows: List<FeedRow>, val activity: Activity) : RecyclerView.Adapter<ListingAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
@@ -43,7 +46,17 @@ class ListingAdapter(val rows: List<FeedRow>, val activity: Activity) : Recycler
                 itemView.imageView.visibility = View.GONE
             else {
                 itemView.imageView.visibility = View.VISIBLE
-                Picasso.with(activity).load(row.image).into(itemView.imageView); }
+
+                Picasso.with(activity).load(row.image).into(itemView.imageView, object : Callback {
+                    override fun onSuccess() {
+
+                    }
+
+                    override fun onError() {
+                        itemView.imageView.visibility = View.GONE
+                    }
+                })
+            }
         }
     }
 

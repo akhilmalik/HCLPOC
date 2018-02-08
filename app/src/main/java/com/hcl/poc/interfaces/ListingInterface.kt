@@ -4,6 +4,8 @@ import com.hcl.poc.model.Feed
 
 /**
  * Created by akhilmalik on 07/02/18.
+ *
+ * Interface for getting callbacks of webservice response
  */
 interface ListingInterface {
     // function to send data fetched from server to view

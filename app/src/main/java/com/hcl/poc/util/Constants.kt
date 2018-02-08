@@ -2,6 +2,8 @@ package com.hcl.poc.util
 
 /**
  * Created by akhilmalik on 07/02/18.
+ *
+ * Class for keeping All Constants
  */
 class Constants {
     companion object {

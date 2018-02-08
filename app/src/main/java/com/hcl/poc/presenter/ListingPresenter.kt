@@ -15,6 +15,8 @@ import org.json.JSONException
 
 /**
  * Created by akhilmalik on 07/02/18.
+ *
+ * This is the presenter class for LisitngActivity screen. It provides abstraction to business logic
  */
 class ListingPresenter(var listingInterface: ListingInterface) {
 
@@ -65,12 +67,14 @@ class ListingPresenter(var listingInterface: ListingInterface) {
         POCApp.instance?.addToRequestQueue(stringRequest)
     }
 
+    // Parsing JSON response from GSON
     private fun parseResponse(obj: String) {
         feed = Gson().fromJson(obj, Feed::class.java)
         feed!!.rows = filterFeed()
         listingInterface.onDataLoaded(feed as Feed)
     }
 
+    // Filtering the results and getting rid of any null values
     private fun filterFeed(): List<FeedRow> {
         var filterFeed: ArrayList<FeedRow> = ArrayList<FeedRow>()
         for (row: FeedRow in feed!!.rows) {

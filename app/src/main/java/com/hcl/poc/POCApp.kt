@@ -9,6 +9,8 @@ import com.hcl.poc.presenter.ListingPresenter
 
 /**
  * Created by akhilmalik on 07/02/18.
+ *
+ * Application class, provides singleton instance of application and Volley
  */
 class POCApp : Application() {
 

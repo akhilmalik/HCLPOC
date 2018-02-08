@@ -9,6 +9,7 @@ import com.hcl.poc.util.Constants
 
 /**
  * Created by akhilmalik on 07/02/18.
+ * Splash screen for the app. Will be displayed for just 2 Sec
  */
 
 class SplashActivity : AppCompatActivity() {
@@ -16,6 +17,7 @@ class SplashActivity : AppCompatActivity() {
     private val handler = Handler()
     private val runnable = Runnable { launchMainActivity() }
 
+    // Method for launching next activity
     private fun launchMainActivity() {
         val intent = Intent(this, ListingActivity::class.java)
         startActivity(intent)
