@@ -3,6 +3,7 @@ package com.hcl.poc.views
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.view.View
 import android.widget.LinearLayout
 import android.widget.Toast
 import com.hcl.poc.POCApp
@@ -10,6 +11,7 @@ import com.hcl.poc.R
 import com.hcl.poc.adapter.ListingAdapter
 import com.hcl.poc.interfaces.ListingInterface
 import com.hcl.poc.model.Feed
+import com.hcl.poc.model.FeedRow
 import com.hcl.poc.presenter.ListingPresenter
 import kotlinx.android.synthetic.main.activity_listing.*
 import kotlinx.android.synthetic.main.content_listing.*
@@ -30,12 +32,17 @@ class ListingActivity : AppCompatActivity(), ListingInterface {
 
         listingPresenter.getFeed(false, this)
         fab.setOnClickListener { view ->
+            errorTV.visibility = View.GONE
+            recyclerView.visibility = View.VISIBLE
             listingPresenter.getFeed(true, this)
         }
+        recyclerView.adapter = ListingAdapter(ArrayList<FeedRow>(), this)
     }
 
     override fun onResume() {
         super.onResume()
+        errorTV.visibility = View.GONE
+        recyclerView.visibility = View.VISIBLE
     }
 
     override fun onDataLoaded(feed: Feed) {
@@ -45,6 +52,8 @@ class ListingActivity : AppCompatActivity(), ListingInterface {
     }
 
     override fun onError(error: String) {
+        errorTV.visibility = View.VISIBLE
+        recyclerView.visibility = View.GONE
         Toast.makeText(this, error, Toast.LENGTH_LONG).show()
     }
 }
