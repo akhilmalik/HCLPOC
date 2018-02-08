@@ -22,7 +22,7 @@ import kotlinx.android.synthetic.main.content_listing.*
 class ListingActivity : AppCompatActivity(), ListingInterface {
 
 
-    lateinit var listingPresenter: ListingPresenter
+    private lateinit var listingPresenter: ListingPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,8 +32,7 @@ class ListingActivity : AppCompatActivity(), ListingInterface {
 
         listingPresenter.getFeed(false, this)
         fab.setOnClickListener { view ->
-            errorTV.visibility = View.GONE
-            recyclerView.visibility = View.VISIBLE
+            disableError()
             listingPresenter.getFeed(true, this)
         }
         recyclerView.adapter = ListingAdapter(ArrayList<FeedRow>(), this)
@@ -41,8 +40,7 @@ class ListingActivity : AppCompatActivity(), ListingInterface {
 
     override fun onResume() {
         super.onResume()
-        errorTV.visibility = View.GONE
-        recyclerView.visibility = View.VISIBLE
+        disableError()
     }
 
     override fun onDataLoaded(feed: Feed) {
@@ -52,8 +50,19 @@ class ListingActivity : AppCompatActivity(), ListingInterface {
     }
 
     override fun onError(error: String) {
+        enableError()
+        Toast.makeText(this, error, Toast.LENGTH_LONG).show()
+    }
+
+    // Enable error message
+    private fun enableError(){
         errorTV.visibility = View.VISIBLE
         recyclerView.visibility = View.GONE
-        Toast.makeText(this, error, Toast.LENGTH_LONG).show()
+    }
+
+    //disable error message
+    private fun disableError(){
+        errorTV.visibility = View.GONE
+        recyclerView.visibility = View.VISIBLE
     }
 }

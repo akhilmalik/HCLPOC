@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.support.v7.app.AppCompatActivity
 import com.hcl.poc.R
+import com.hcl.poc.util.Constants
 
 /**
  * Created by akhilmalik on 07/02/18.
@@ -12,8 +13,8 @@ import com.hcl.poc.R
 
 class SplashActivity : AppCompatActivity() {
 
-    val handler = Handler()
-    var runnable = Runnable { launchMainActivity() }
+    private val handler = Handler()
+    private val runnable = Runnable { launchMainActivity() }
 
     private fun launchMainActivity() {
         val intent = Intent(this, ListingActivity::class.java)
@@ -29,7 +30,7 @@ class SplashActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        handler.postDelayed(runnable, 2000)
+        handler.postDelayed(runnable, Constants.SPLASH_TIME)
     }
 
     override fun onPause() {
