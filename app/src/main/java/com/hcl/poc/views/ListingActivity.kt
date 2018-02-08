@@ -30,12 +30,12 @@ class ListingActivity : AppCompatActivity(), ListingInterface {
 
         listingPresenter = POCApp.instance?.getListingPresenter(this) as ListingPresenter
 
+        recyclerView.adapter = ListingAdapter(ArrayList<FeedRow>(), this)
         listingPresenter.getFeed(false, this)
         fab.setOnClickListener { view ->
             disableError()
             listingPresenter.getFeed(true, this)
         }
-        recyclerView.adapter = ListingAdapter(ArrayList<FeedRow>(), this)
     }
 
     override fun onResume() {
